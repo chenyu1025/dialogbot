@@ -1,0 +1,7 @@
+room_id roomid gid room id 直播间 房间 title room_title	直播间实体: 直播间(id/标题)
+uid userid user_id 用户 id 粉丝 nickname	user_id
+device id 设备 device_id	用户实体: 设备
+anchor_id nickname 主播 id 昵称 用户	用户实体: 主播(id/昵称)
+消费 订单 order_id order id 结算 收入 礼物 流水	交易实体: 订单(id/名称)
+pk_id id pk battle battle_id 连屏	功能实体: 主播连屏
+pk_id play_id link battle battle_id 连屏 多人	功能实体: 主播pk

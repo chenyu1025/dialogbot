@@ -1,0 +1,9 @@
+实体id,用户,实体,用户ID,userid,用户id,达人id,抖火用户,user_id,达人,uid,Uid,user
+实体id,用户,实体,用户ID,userid,用户id,达人id,抖火用户,user_id,达人,uid,Uid,user
+店铺id,商家ID,商户id,店铺ID,店铺,商家id,商家,商户,shop_id,shop
+sku,skuid,sku_id,sku
+商品id,商品,prod,prod_id,product_id,sku
+商品id,商品,prod,prod_id,product_id,sku
+订单,orderid,order_id,order
+作者,作者id,author,authorid,author_id
+did,device,设备id,设备,deviceid,device_id

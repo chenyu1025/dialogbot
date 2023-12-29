@@ -1,0 +1,9 @@
+user_id
+uid,
+shop_id
+sku_uid
+prod_id
+product_id
+order_id
+author_id
+device_id

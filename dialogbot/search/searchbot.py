@@ -21,10 +21,12 @@ class SearchBot:
             vocab_path=config.search_vocab_path,
             search_model="bm25",
             last_txt_len=100,
-            vocab_size=20000
+            vocab_size=20000,
+            top_k=1
     ):
         self.last_txt = deque([], last_txt_len)
         self.search_model = search_model
+        self.top_k = top_k
 
         # search engine
         self.internet_search_inst = Engine()
@@ -63,13 +65,27 @@ class SearchBot:
 
         logger.debug('-' * 20)
         logger.debug("init_query=%s, filter_query=%s" % (query, "".join(tokens)))
-        response, score = answers[0], sim_items[0][1]
-        logger.debug("search_model=%s, %s_search_sim_doc=%s, score=%.4f"
-                     % (self.search_model, mode, "".join(docs[0]), score))
-        if (self.search_model == "tfidf" and score >= 0.7) or (
-                self.search_model == "onehot" and score >= 0.5) or (
-                self.search_model == "bm25" and score >= 1.0):
-            return response, score
+        if self.top_k == 1:
+            response, score = answers[0], sim_items[0][1]
+            logger.debug("search_model=%s, %s_search_sim_doc=%s, score=%.4f"
+                         % (self.search_model, mode, "".join(docs[0]), score))
+            if (self.search_model == "tfidf" and score >= 0.01) or (
+                    self.search_model == "onehot" and score >= 0.5) or (
+                    self.search_model == "bm25" and score >= 0):
+                return response, score
+        else:
+            response_list = []
+            score_list = []
+            for i in range(self.top_k):
+                response, score = answers[i], sim_items[i][1]
+                logger.debug("search_model=%s, %s_search_sim_doc=%s, score=%.4f"
+                             % (self.search_model, mode, "".join(docs[0]), score))
+                if (self.search_model == "tfidf" and score >= 0.01) or (
+                        self.search_model == "onehot" and score >= 0.5) or (
+                        self.search_model == "bm25" and score >= 0.01):
+                    response_list.append(response)
+                    score_list.append(score)
+            return response_list, score_list
 
         response, score = "亲爱哒，还有什么小妹可以帮您呢~", 2.0
         logger.debug("search_response=%s" % response)
